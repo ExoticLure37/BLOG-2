@@ -1,32 +1,21 @@
 import React from 'react';
-import {useParams} from "react-router-dom";
-import {ZegoUIKitPrebuilt} from '@zegocloud/zego-uikit-prebuilt';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import {BrowserRouter} from 'react-router-dom';
 
-const Roompage = () =>{
-    const {roomId} = useParams();
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
 
-    const myMeeting = async (element) => {
-        const appID = 1315541933;
-        const serverSecret = "302603b11722234278924b14ed573607";
-        const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appID,
-            serverSecret,
-            roomId,
-            Date.now().toString(),
-            'username'
-            );
-        const zp = ZegoUIKitPrebuilt.create(kitToken);
-        zp.joinRoom({
-            container: element,
-            scenario:{
-                mode: ZegoUIKitPrebuilt.VideoConference,
-            }
-        })
-    }
-    return (
-        <div className="room-page">
-            <div ref={myMeeting}/>
-        </div>
-    )
-}
+  </React.StrictMode>
+);
 
-export default Roompage;
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
